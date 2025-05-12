@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Image, Text, View } from 'react-native';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { AlertDialog, AlertDialogBackdrop, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader } from './ui/alert-dialog';
 import { Button, ButtonText } from './ui/button';
 import { api } from '@/lib/axios';
+import { AntDesign, Entypo, Ionicons } from '@expo/vector-icons';
 
 export default function PhotoPreview({ imgData, setCapturedPhoto, setPreviewVisible }: any) {
 
@@ -38,44 +39,28 @@ export default function PhotoPreview({ imgData, setCapturedPhoto, setPreviewVisi
         }
     }
 
-    useEffect(() => {
-        setShowAlertDialog(true);
-    }, []);
-
     return (
         <>
-            <View className='h-24 flex flex-row px-4 pb-3 items-end justify-between' style={{ backgroundColor: '#000' }} />
+            <View className='h-24 flex flex-row px-4 pb-3 items-end justify-between' style={{ backgroundColor: '#000' }}>
+				<TouchableOpacity className='p-[5]' onPress={() => { setCapturedPhoto(null); setPreviewVisible(false) }}>
+					<Ionicons name='close' size={24} color="#fff" />
+				</TouchableOpacity>
+                <Text className='text-white text-lg font-semibold p-[6]'>Enviar imagem</Text>
+				<TouchableOpacity className='p-2' onPress={handleSend}>
+					<Entypo name='check' size={20} color="#fff" />
+				</TouchableOpacity>
+			</View>
 
             <Image source={{ uri: imgData && imgData.uri }} className="w-full h-[480]" />
 
-            <AlertDialog isOpen={showAlertDialog} onClose={handleClose} size="md" className='mt-52'>
-                <AlertDialogContent>
-                    <AlertDialogHeader>
-                        <Text>
-                            Deseja enviar esta imagem?
-                        </Text>
-                    </AlertDialogHeader>
-                    <AlertDialogBody className="mt-3 mb-4">
-                        <Text>
-                            Uma vez que for analisada, a imagem será automaticamente deletada.
-                        </Text>
-                    </AlertDialogBody>
-                    <AlertDialogFooter className="flex justify-center">
-                        <Button variant="outline" action="secondary" onPress={() => { setCapturedPhoto(null); setPreviewVisible(false) }} size="md">
-                            <ButtonText>Cancelar</ButtonText>
-                        </Button>
-                        <Button size="md"
-                            style={buttonPressed ? { backgroundColor: "#5b990e" } : { backgroundColor: "#6db611" }}
-                            onPressIn={() => setButtonPressed(true)}
-                            onPress={handleSend}
-                        >
-                            <ButtonText>Enviar</ButtonText>
-                        </Button>
-                    </AlertDialogFooter>
-                </AlertDialogContent>
-            </AlertDialog>
-
-            <View className='absolute bottom-0 flex flex-row items-center justify-center w-full h-[22%]' style={{ backgroundColor: '#000' }} />
+            <View className='absolute bottom-0 items-center w-full h-[28%] py-10 px-6' style={{ backgroundColor: '#000' }}> 
+                <Text className='text-center text-white font-semibold mb-4'>
+                    Confirme o envio da imagem
+                </Text>
+                <Text className='text-center text-white' style={{ fontFamily: 'Inter' }}>
+                    Ao enviar, você receberá um possível diagnóstico da praga relacionada.
+                </Text>
+            </View>
         </>
     );
 }

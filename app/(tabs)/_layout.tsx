@@ -3,7 +3,6 @@ import React from 'react';
 import { Platform } from 'react-native';
 
 import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
@@ -31,20 +30,23 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
+          sceneStyle: {
+            backgroundColor: "#fff"
+          },
           title: 'Home',
           tabBarShowLabel: false,
-          tabBarIcon: ({ color }) => <AntDesign name='home' size={28} color={color} />,
+          tabBarIcon: ({ color }) => <AntDesign name='camerao' size={28} color={color} />
         }}
       />
 
-      <Tabs.Screen
+      {/*<Tabs.Screen
         name="camera"
         options={{
           title: 'Camera',
           tabBarShowLabel: false,
-          tabBarIcon: ({ color }) => <AntDesign name='camerao' size={28} color={color} />,
+          tabBarIcon: ({ color }) => <AntDesign name='home' size={28} color={color} />,
         }}
-      />
+      />*/}
 
       <Tabs.Screen
         name="learn"

@@ -17,9 +17,11 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
-    Bernadette: require('../assets/fonts/Bernadette.ttf'),
-    Inter: require('../assets/fonts/Inter-Regular.ttf'),
-    SairaLight: require('../assets/fonts/Saira-Light.ttf'),
+    PoppinsLight: require('../assets/fonts/Poppins-Light.ttf'),
+    Poppins: require('../assets/fonts/Poppins-Regular.ttf'),
+    PoppinsMedium: require('../assets/fonts/Poppins-Medium.ttf'),
+    PoppinsSemiBold: require('../assets/fonts/Poppins-SemiBold.ttf'),
+    PoppinsItalic: require('../assets/fonts/Poppins-Italic.ttf'),
   });
 
   useEffect(() => {
@@ -36,6 +38,7 @@ export default function RootLayout() {
     <GluestackUIProvider mode="light"><ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="camera" options={{ headerShown: false }} />
         </Stack>
         <StatusBar style="auto" />
       </ThemeProvider></GluestackUIProvider>
