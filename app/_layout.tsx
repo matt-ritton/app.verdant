@@ -10,38 +10,55 @@ import { useEffect } from 'react';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { getLocalDictionary, getDictionaryFromStorage } from "@/lib/dictionaryStorage";
+import { getLocalArticles } from "@/lib/articleStorage";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    PoppinsLight: require('../assets/fonts/Poppins-Light.ttf'),
-    Poppins: require('../assets/fonts/Poppins-Regular.ttf'),
-    PoppinsMedium: require('../assets/fonts/Poppins-Medium.ttf'),
-    PoppinsSemiBold: require('../assets/fonts/Poppins-SemiBold.ttf'),
-    PoppinsItalic: require('../assets/fonts/Poppins-Italic.ttf'),
-  });
+	const colorScheme = useColorScheme();
+	const [loaded] = useFonts({
+		PoppinsLight: require('../assets/fonts/Poppins-Light.ttf'),
+		Poppins: require('../assets/fonts/Poppins-Regular.ttf'),
+		PoppinsMedium: require('../assets/fonts/Poppins-Medium.ttf'),
+		PoppinsSemiBold: require('../assets/fonts/Poppins-SemiBold.ttf'),
+		PoppinsItalic: require('../assets/fonts/Poppins-Italic.ttf'),
+	});
 
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
+	// Sync local data with the API
+	useEffect(() => {
+		const loadingData = async () => {
+			await getLocalArticles();
+			await getLocalDictionary();
+		};
 
-  if (!loaded) {
-    return null;
-  }
+		loadingData();
+		console.log("Loading articles and dictionary data...");
+	}, []);
 
-  return (
-    <GluestackUIProvider mode="light"><ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="camera" options={{ headerShown: false }} />
-          <Stack.Screen name="diagnosis" options={{ headerShown: false }} />
-        </Stack>
-        <StatusBar style="auto" />
-      </ThemeProvider></GluestackUIProvider>
-  );
+
+	useEffect(() => {
+		if (loaded) {
+			SplashScreen.hideAsync();
+		}
+	}, [loaded]);
+
+	if (!loaded) {
+		return null;
+	}
+
+	return (
+		<GluestackUIProvider mode="light"><ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+			<Stack>
+				<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+				<Stack.Screen name="welcome" options={{ headerShown: false }} />
+				<Stack.Screen name="camera" options={{ headerShown: false }} />
+				<Stack.Screen name="diagnosis" options={{ headerShown: false }} />
+				<Stack.Screen name="article" options={{ headerShown: false }} />
+				<Stack.Screen name="history" options={{ headerShown: false }} />
+			</Stack>
+			<StatusBar style="auto" />
+		</ThemeProvider></GluestackUIProvider>
+	);
 }

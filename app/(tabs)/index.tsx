@@ -1,11 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import HeaderBar from "@/components/ui/Header";
-import { Image, View, Text } from "react-native";
-import { Button, ButtonText } from "@/components/ui/button";
-import { Link } from "expo-router";
+import { View, Text, TouchableOpacity } from "react-native";
+import { router } from "expo-router";
+import TakePhotoCard from "@/components/TakePhotoCard";
+import { appStorage } from "@/lib/storage";
+import { ChevronRightIcon, Icon } from "@/components/ui/icon";
+import Articles from "@/components/Articles";
+import FeaturedArticles from "@/components/FeaturedArticles";
 
-//TODO: Show all diagnostics
 export default function HomeScreen() {
+
+    useEffect(() => {
+        if (appStorage.getString('hasSeenWelcome') !== '1') {
+            router.push('/welcome');
+        }
+    }, []);
 
     return (
 
@@ -13,27 +22,39 @@ export default function HomeScreen() {
             <HeaderBar />
 
             {/* Content */}
-            <View className="px-6">
+            <View className="flex flex-col gap-8 px-6 py-4">
 
-                <View className="flex flex-col gap-4 mt-[-8]">
-                    <Text className="text-lg" style={{fontFamily: 'PoppinsMedium'}}>Diagnosticar planta</Text>
-                    <View className="w-full rounded-2xl py-2 items-center justify-center bg-[#F5F5F5]">
-                        <Image className="absolute bottom-0 rounded-xl w-full" source={require("../../assets/images/bg.takePictureCard.png")} />
-                        <Text className="mt-4 text-lg color-[#64AA0C]" style={{ fontFamily: "PoppinsSemiBold" }}>Tire uma foto</Text>
-                        <Text className="my-4 px-2 color-[#366100]" style={{ fontFamily: "PoppinsLight" }}>Para diagnosticar sua cultura, basta tirar uma foto e aguardar o diagnóstico, contendo as informações principais informações da doença ou praga.</Text>
-                        <Link href="/camera" asChild>
-                            <Button className="rounded-2xl mb-2 bg-[#64AA0C]" size="md" variant="solid" action="primary">
-                                <ButtonText>Tirar uma foto</ButtonText>
-                            </Button>
-                        </Link>
+                {/* Featured section */}
+                <View className="flex flex-col gap-10">
+                    <View className='flex flex-row justify-between items-center'>
+                        <Text className="text-lg" style={{ fontFamily: 'PoppinsMedium' }}>Em destaque</Text>
+                        
+                        {/*
+                        <TouchableOpacity className="flex flex-row items-center" onPress={() => {}}>
+                            <Text className="text-sm text-[#A3A3A3]" style={{ fontFamily: 'PoppinsLight' }}>Ver mais</Text>
+                            <Icon as={ChevronRightIcon} size="sm" color="#A3A3A3" />
+                        </TouchableOpacity>
+                        */}
+                    </View>
+                    <View>
+                       <FeaturedArticles />
+
                     </View>
                 </View>
 
-                <View className="mt-8 flex flex-col gap-10">
-                    <Text className="text-lg" style={{fontFamily: 'PoppinsMedium'}}>Seus diagnósticos</Text>
-                    <View>
-                        <Text className="text-center text-sm color-[#A3A3A3]" style={{fontFamily: "PoppinsLight"}}>Você ainda não possui diagnósticos realizados.</Text>
+                {/* Card section */}
+                <TakePhotoCard />
+
+                {/* Articles section */}
+                <View className="flex flex-col gap-6">
+                    <View className="flex flex-row justify-between items-center">
+                        <Text className="text-lg" style={{ fontFamily: 'PoppinsMedium' }}>Aprenda mais</Text>
+                        <TouchableOpacity className="flex flex-row items-center" onPress={() => { router.push('/learn') }}>
+                            <Text className="text-sm text-[#64AA0C]" style={{ fontFamily: 'Poppins' }}>Ver mais</Text>
+                            <Icon as={ChevronRightIcon} size="sm" color="#64AA0C" />
+                        </TouchableOpacity>
                     </View>
+                    <Articles />
                 </View>
 
             </View>

@@ -3,12 +3,13 @@ import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { api } from '@/lib/axios';
 import { Entypo, Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+import { saveClassification } from '@/lib/classificationStorage';
 
 export default function PhotoPreview({ imgData, setCapturedPhoto, setPreviewVisible }: any) {
 
     const route = useRouter();
 
-    // Function to send photo to API
+    // Make a POST request to the API with the image data and handle the response
     const handleSend = async () => {
 
         const formData = new FormData();
@@ -28,7 +29,16 @@ export default function PhotoPreview({ imgData, setCapturedPhoto, setPreviewVisi
             if (response.status === 200) {
                 setCapturedPhoto(null);
                 setPreviewVisible(false);
-                
+                console.log('Photo sent successfully:', response.data);
+
+                // Save the classification data
+                const classification = {
+                    label: response.data.message.label,
+                    confidence: response.data.message.confidence,
+                    timestamp: new Date().toISOString(),
+                };
+                saveClassification(classification);
+
                 route.push({
                     pathname: '/diagnosis',
                     params: { data: JSON.stringify(response.data) }

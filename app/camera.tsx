@@ -9,14 +9,14 @@ export default function CameraScreen() {
     const [previewVisible, setPreviewVisible] = useState(false);
     const [capturedPhoto, setCapturedPhoto] = useState<any>(null);
 
-    // Carregado as permissões de câmera
+    // Load the camera permissions
     if (!permission) {
         return (
             <View />
         );
     }
 
-    // Se a permissão não foi concedida, solicitar permissão
+    // If permission to access the camera is not granted yet...
     if (!permission.granted) {
         return (
             <View className="mt-20">

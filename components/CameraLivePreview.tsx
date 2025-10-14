@@ -7,19 +7,23 @@ import { Modal, ModalBackdrop, ModalBody, ModalCloseButton, ModalContent, ModalF
 import { Button, ButtonText } from './ui/button';
 import { CloseIcon, Icon } from './ui/icon';
 import { FadeLoop } from './ui/Effects';
+import { useRouter } from 'expo-router';
 
 export default function CameraLivePreview({ setPreviewVisible, setCapturedPhoto }: any) {
+
+	//FIXME: Ajustar a posicao e tamanho  do frame de foco conforme o dispositivo (tamanho da tela)
+
+	const router = useRouter();
 
 	const [facing, setFacing] = useState<CameraType>("back");
 	const [flash, setFlash] = useState<FlashMode>("off");
 	const [showModal, setShowModal] = useState(false);
-	const [buttonPressed, setButtonPressed] = useState(false);
 
 	// UI: Focus frame
 	const { width, height } = Dimensions.get('window');
 	const FRAME_SIZE = 240;
 	const frameOffsetTop = (height - FRAME_SIZE) / 2 - 36;
-  	const frameOffsetLeft = (width - FRAME_SIZE) / 2;
+	const frameOffsetLeft = (width - FRAME_SIZE) / 2;
 
 	// Camera API
 	const cameraRef = useRef(null);
@@ -28,7 +32,7 @@ export default function CameraLivePreview({ setPreviewVisible, setCapturedPhoto 
 		if (!cameraRef.current) return;
 
 		const photo = await cameraRef.current.takePictureAsync();
-		console.log('Available sizes:', await cameraRef.current.getAvailablePictureSizesAsync("1:1"));
+		//console.log('Available sizes:', await cameraRef.current.getAvailablePictureSizesAsync("1:1"));
 		//console.log('Picture taken:', photo.uri);
 		setPreviewVisible(true);
 		setCapturedPhoto(photo);
@@ -52,7 +56,7 @@ export default function CameraLivePreview({ setPreviewVisible, setCapturedPhoto 
 		<View>
 			{/* Upper Menu */}
 			<View className='h-24 flex flex-row px-4 pb-3 items-end justify-between' style={{ backgroundColor: '#000' }}>
-				<TouchableOpacity className='p-1'>
+				<TouchableOpacity className='p-1' onPress={() => router.back()}>
 					<Entypo name='chevron-left' size={24} color="#fff" />
 				</TouchableOpacity>
 				<TouchableOpacity className='p-2' onPress={() => setFlash(flash === "off" ? "on" : "off")}>
@@ -76,7 +80,7 @@ export default function CameraLivePreview({ setPreviewVisible, setCapturedPhoto 
 
 			<CameraView facing={facing} flash={flash} ratio='1:1' pictureSize='1088x1088' style={{ height: 480 }} ref={(cameraRef)} />
 
-			<FadeLoop duration={1000} style={{ position: 'absolute', bottom: 300, left: 0, right: 0, alignItems: 'center'}}>
+			<FadeLoop duration={1000} style={{ position: 'absolute', bottom: 300, left: 0, right: 0, alignItems: 'center' }}>
 				<Text className='absolute z-10 text-white' style={{ fontFamily: "PoppinsRegular" }}>
 					Foque a câmera na área do dano
 				</Text>
@@ -121,13 +125,7 @@ export default function CameraLivePreview({ setPreviewVisible, setCapturedPhoto 
 						</View>
 					</ModalBody>
 					<ModalFooter>
-						<Button
-							style={buttonPressed ? { backgroundColor: "#5b990e" } : { backgroundColor: "#6db611" }}
-							onPressIn={() => setButtonPressed(true)}
-							onPress={() => {
-								setShowModal(false)
-							}}
-						>
+						<Button className='rounded-full' onPress={() => { setShowModal(false) }}>
 							<ButtonText>Entendido</ButtonText>
 						</Button>
 					</ModalFooter>

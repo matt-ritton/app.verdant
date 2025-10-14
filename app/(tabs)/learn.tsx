@@ -1,10 +1,19 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
+import React, { useState } from 'react';
+import HeaderBar from '@/components/ui/Header';
+import SearchBar from '@/components/SearchBar';
+import ArticleList from '@/components/ArtictleList';
 
 export default function LearnScreen() {
-    return (
-        <View>
-            <Text>LearnScreen</Text>
-        </View>
-    );
+	const [query, setQuery] = useState('');
+
+	return (
+		<>
+			<HeaderBar />
+			<View className="flex flex-col gap-8 px-6 py-4">
+				<SearchBar value={query} onChangeText={setQuery} onSubmitEditing={() => { }} />
+				<ArticleList searchTerm={query} />
+			</View>
+		</>
+	);
 }
