@@ -15,10 +15,10 @@ This repository contains the code responsible for the development of the project
 2. Start the app
 
    ```bash
-    npx expo start
+    npx expo run:android
    ```
 
-For this project to work as expected, the API must be working!
+For this project to work as expected, the API must be working! 
 
 ### Contribution
 This project was developed by Matheus Ritton.
