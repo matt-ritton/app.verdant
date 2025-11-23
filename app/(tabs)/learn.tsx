@@ -1,8 +1,9 @@
 import { View } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import HeaderBar from '@/components/ui/Header';
 import SearchBar from '@/components/SearchBar';
-import ArticleList from '@/components/ArtictleList';
+import ArticleList from '@/components/DictList';
+import { getDictionaryFromStorage } from '@/lib/dictionaryStorage';
 
 export default function LearnScreen() {
 	const [query, setQuery] = useState('');

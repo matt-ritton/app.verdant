@@ -114,7 +114,7 @@ const HistoryList = forwardRef<HistoryListHandle, Props>(function HistoryList({ 
 										className={`flex flex-row items-center gap-3 py-3 rounded-lg ${selectable ? 'px-6' : ''}`}
 										style={selectable && isSelected ? { backgroundColor: '#F3F4F6' } : undefined}
 									>
-										<Image className="w-20 h-20 rounded-lg" source={require('../assets/images/img.example.jpeg')} />
+										<Image className="w-20 h-20 rounded-lg" source={{ uri: item.photoUri }} />
 										<View className="flex flex-1 flex-col gap-1">
 											<View className="flex flex-row items-center justify-between">
 												<Text className="text-lg" style={{ fontFamily: "Poppins" }}>{item.label}</Text>

@@ -11,8 +11,6 @@ import { useRouter } from 'expo-router';
 
 export default function CameraLivePreview({ setPreviewVisible, setCapturedPhoto }: any) {
 
-	//FIXME: Ajustar a posicao e tamanho  do frame de foco conforme o dispositivo (tamanho da tela)
-
 	const router = useRouter();
 
 	const [facing, setFacing] = useState<CameraType>("back");
@@ -53,7 +51,7 @@ export default function CameraLivePreview({ setPreviewVisible, setCapturedPhoto 
 	};
 
 	return (
-		<View>
+		<View className='flex-1 bg-black justify-between'>
 			{/* Upper Menu */}
 			<View className='h-24 flex flex-row px-4 pb-3 items-end justify-between' style={{ backgroundColor: '#000' }}>
 				<TouchableOpacity className='p-1' onPress={() => router.back()}>
@@ -78,7 +76,7 @@ export default function CameraLivePreview({ setPreviewVisible, setCapturedPhoto 
 				<View className="absolute bottom-0 right-0 w-[30px] h-[30px] border-b-4 border-r-4 border-white rounded-md" />
 			</View>
 
-			<CameraView facing={facing} flash={flash} ratio='1:1' pictureSize='1088x1088' style={{ height: 480 }} ref={(cameraRef)} />
+			<CameraView facing={facing} flash={flash} ratio='1:1' pictureSize='1080x1080' style={{ height: 480 }} ref={(cameraRef)} />
 
 			<FadeLoop duration={1000} style={{ position: 'absolute', bottom: 300, left: 0, right: 0, alignItems: 'center' }}>
 				<Text className='absolute z-10 text-white' style={{ fontFamily: "PoppinsRegular" }}>

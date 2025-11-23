@@ -34,7 +34,6 @@ export default function RootLayout() {
 		};
 
 		loadingData();
-		console.log("Loading articles and dictionary data...");
 	}, []);
 
 

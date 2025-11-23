@@ -3,7 +3,9 @@ import { dictStorage } from './storage';
 
 const KEY = 'dictionary';
 const LAST_SYNC_KEY = 'dictionary_lastSync';
-const STALE_MS = 24 * 60 * 60 * 1000; // 24h
+const STALE_MS = 10 * 1000 //24 * 60 * 60 * 1000; // 24h
+
+//FIXME: Voltar para 24h depois dos testes
 
 // Sync dictionary from the API and store it locally
 export async function syncDictionary() {

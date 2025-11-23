@@ -10,7 +10,7 @@ export type Article = {
 
 const KEY = 'articles';
 const LAST_SYNC_KEY = 'articles_lastSync';
-const STALE_MS = 24* 60 * 60 * 1000; // 24h
+const STALE_MS = 10 * 1000 // 24* 60 * 60 * 1000; // 24h
 
 const ARTICLES_QUERY = `
   query MyQuery {

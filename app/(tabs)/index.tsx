@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import HeaderBar from "@/components/ui/Header";
-import { View, Text, TouchableOpacity } from "react-native";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { router } from "expo-router";
 import TakePhotoCard from "@/components/TakePhotoCard";
 import { appStorage } from "@/lib/storage";
@@ -18,17 +18,17 @@ export default function HomeScreen() {
 
     return (
 
-        <View>
+        <ScrollView showsVerticalScrollIndicator={false} className="flex-1">
             <HeaderBar />
 
             {/* Content */}
-            <View className="flex flex-col gap-8 px-6 py-4">
+            <View className="flex flex-col gap-8 py-4">
 
                 {/* Featured section */}
-                <View className="flex flex-col gap-10">
+                <View className="flex flex-col gap-10 px-6">
                     <View className='flex flex-row justify-between items-center'>
                         <Text className="text-lg" style={{ fontFamily: 'PoppinsMedium' }}>Em destaque</Text>
-                        
+
                         {/*
                         <TouchableOpacity className="flex flex-row items-center" onPress={() => {}}>
                             <Text className="text-sm text-[#A3A3A3]" style={{ fontFamily: 'PoppinsLight' }}>Ver mais</Text>
@@ -37,17 +37,19 @@ export default function HomeScreen() {
                         */}
                     </View>
                     <View>
-                       <FeaturedArticles />
+                        <FeaturedArticles />
 
                     </View>
                 </View>
 
                 {/* Card section */}
-                <TakePhotoCard />
+                <View className="px-6">
+                    <TakePhotoCard />
+                </View>
 
                 {/* Articles section */}
-                <View className="flex flex-col gap-6">
-                    <View className="flex flex-row justify-between items-center">
+                <View className="flex flex-col gap-6 ">
+                    <View className="flex flex-row justify-between items-center  px-6 ">
                         <Text className="text-lg" style={{ fontFamily: 'PoppinsMedium' }}>Aprenda mais</Text>
                         <TouchableOpacity className="flex flex-row items-center" onPress={() => { router.push('/learn') }}>
                             <Text className="text-sm text-[#64AA0C]" style={{ fontFamily: 'Poppins' }}>Ver mais</Text>
@@ -59,7 +61,7 @@ export default function HomeScreen() {
 
             </View>
 
-        </View>
+        </ScrollView>
 
     );
 }

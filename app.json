@@ -1,10 +1,10 @@
 {
   "expo": {
     "name": "Verdant AI",
-    "slug": "tcc.app",
-    "version": "1.0.0",
+    "slug": "verdant",
+    "version": "0.0.1",
     "orientation": "portrait",
-    "icon": "./assets/icons/icon.png",
+    "icon": "./assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -18,11 +18,9 @@
       },
       "permissions": [
         "android.permission.CAMERA",
-        "android.permission.RECORD_AUDIO",
-        "android.permission.CAMERA",
         "android.permission.RECORD_AUDIO"
       ],
-      "package": "com.anonymous.tcc.app"
+      "package": "com.anonymous.verdant"
     },
     "web": {
       "bundler": "metro",
@@ -57,6 +55,12 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "e25c505d-62ed-4c5c-99f2-1939c3437604"
+      }
     }
   }
 }

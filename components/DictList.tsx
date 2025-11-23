@@ -1,12 +1,15 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { FlatList, Image, View, Text, TouchableOpacity } from 'react-native';
+import { FlatList, View, Text, TouchableOpacity } from 'react-native';
+import { Image } from 'expo-image';
 import { getLocalDictionary } from '@/lib/dictionaryStorage';
 import { useRouter } from 'expo-router';
 
 type Phytopathology = {
     label: string;
     type: string;
-    // ...outros campos se necessário
+    images: {
+        cover: string;
+    }
 };
 
 type Props = {
@@ -66,8 +69,9 @@ export default function ArticleList({ searchTerm = '' }: Props) {
                 }}>
                     <View className="flex flex-row items-center gap-3 py-3 rounded-lg">
                         <Image
-                            className="w-20 h-20 rounded-lg"
-                            source={require('../assets/images/img.example.jpeg')}
+                            style={{ width: 80, height: 80, borderRadius: 8 }}
+                            source={{ uri: item.images.cover }}
+                            cachePolicy='disk'
                         />
                         <View className="flex flex-1 flex-col gap-1">
                             <View className="flex flex-row items-center justify-between">

@@ -36,12 +36,14 @@ export default function PhotoPreview({ imgData, setCapturedPhoto, setPreviewVisi
                     label: response.data.message.label,
                     confidence: response.data.message.confidence,
                     timestamp: new Date().toISOString(),
+                    photoUri: imgData?.uri, // guarda o caminho da foto
                 };
                 saveClassification(classification);
 
                 route.push({
                     pathname: '/diagnosis',
-                    params: { data: JSON.stringify(response.data) }
+                    // opcional: envia a foto local para ser exibida na tela de diagnóstico
+                    params: { data: JSON.stringify({ ...response.data, image1: imgData?.uri }) }
                 });
 
             }
@@ -53,7 +55,7 @@ export default function PhotoPreview({ imgData, setCapturedPhoto, setPreviewVisi
     }
 
     return (
-        <>
+        <View className='flex-1 bg-black'>
             <View className='h-24 flex flex-row px-4 pb-3 items-end justify-between' style={{ backgroundColor: '#000' }}>
                 <TouchableOpacity className='p-[5]' onPress={() => { setCapturedPhoto(null); setPreviewVisible(false) }}>
                     <Ionicons name='close' size={24} color="#fff" />
@@ -74,6 +76,6 @@ export default function PhotoPreview({ imgData, setCapturedPhoto, setPreviewVisi
                     Ao enviar, você receberá um possível diagnóstico da praga relacionada.
                 </Text>
             </View>
-        </>
+        </View>
     );
 }

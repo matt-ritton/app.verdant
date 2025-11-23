@@ -55,13 +55,13 @@ export default function PostScreen() {
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<style>
 				body { font-family: -apple-system, Segoe UI, Roboto, sans-serif; color:#111827; margin:0; padding:0; line-height:1.6; }
-				.wrap { padding: 0 16px; }
+				.wrap { padding: 0 24px; }
 				.hero { width:100%; height:280px; object-fit: cover; display:block; border-radius: 0 !important; }
 				h1 { margin: 16px 0 4px; font-size: 24px; }
 				.author { margin: 0 0 12px; color:#6B7280; font-size: 14px; }
 				img { max-width: 100%; height: auto; border-radius: 12px; }
 				h2,h3 { margin-top: 1.25rem; margin-bottom: .5rem; }
-				p { margin: .5rem 0; }
+				p { margin: .5rem 0; text-align: justify; }
 				ul,ol { padding-left: 1.25rem; }
 				a { color: #2563EB; text-decoration: none; }
 				</style>
