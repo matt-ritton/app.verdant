@@ -8,6 +8,7 @@ import { Button, ButtonText } from './ui/button';
 import { CloseIcon, Icon } from './ui/icon';
 import { FadeLoop } from './ui/Effects';
 import { useRouter } from 'expo-router';
+import { useIsFocused } from '@react-navigation/native';
 
 export default function CameraLivePreview({ setPreviewVisible, setCapturedPhoto }: any) {
 
@@ -25,6 +26,7 @@ export default function CameraLivePreview({ setPreviewVisible, setCapturedPhoto 
 
 	// Camera API
 	const cameraRef = useRef(null);
+	const isFocused = useIsFocused();
 
 	const _takePicture = async () => {
 		if (!cameraRef.current) return;
@@ -76,9 +78,18 @@ export default function CameraLivePreview({ setPreviewVisible, setCapturedPhoto 
 				<View className="absolute bottom-0 right-0 w-[30px] h-[30px] border-b-4 border-r-4 border-white rounded-md" />
 			</View>
 
-			<CameraView facing={facing} flash={flash} ratio='1:1' pictureSize='1080x1080' style={{ height: 480 }} ref={(cameraRef)} />
+			{isFocused && (
+				<CameraView
+					facing={facing}
+					flash={flash}
+					ratio='1:1'
+					pictureSize='1080x1080'
+					style={{ height: 480 }}
+					ref={(cameraRef)}
+				/>
+			)}
 
-			<FadeLoop duration={1000} style={{ position: 'absolute', bottom: 300, left: 0, right: 0, alignItems: 'center' }}>
+			<FadeLoop duration={1000} style={{ position: 'absolute', bottom: 275, left: 0, right: 0, alignItems: 'center' }}>
 				<Text className='absolute z-10 text-white' style={{ fontFamily: "PoppinsRegular" }}>
 					Foque a câmera na área do dano
 				</Text>

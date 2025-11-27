@@ -24,7 +24,8 @@ const HistoryList = forwardRef<HistoryListHandle, Props>(function HistoryList({ 
 
 	useFocusEffect(
 		useCallback(() => {
-			const data = getClassifications();
+			const data = getClassifications()
+				.sort((a, b) => Number(new Date(b.timestamp)) - Number(new Date(a.timestamp))); // ordena do mais recente ao mais antigo
 			setItems(data);
 			setSelected(new Set());
 			onSelectionChange?.(0); // Reset selection on focus
@@ -72,8 +73,7 @@ const HistoryList = forwardRef<HistoryListHandle, Props>(function HistoryList({ 
 		items.length > 0 ? (
 			<>
 				<FlatList
-					inverted
-					data={typeof limit === 'number' ? items.slice(-limit) : items}
+					data={typeof limit === 'number' ? items.slice(0, limit) : items} // já está em ordem decrescente
 					keyExtractor={(item, index) => `${item.timestamp}-${index}`}
 					extraData={selected}
 					renderItem={({ item, index }) => {

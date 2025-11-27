@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback } from "react";
 import HeaderBar from "@/components/ui/Header";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { router } from "expo-router";
@@ -7,17 +7,18 @@ import { appStorage } from "@/lib/storage";
 import { ChevronRightIcon, Icon } from "@/components/ui/icon";
 import Articles from "@/components/Articles";
 import FeaturedArticles from "@/components/FeaturedArticles";
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function HomeScreen() {
-
-    useEffect(() => {
-        if (appStorage.getString('hasSeenWelcome') !== '1') {
-            router.push('/welcome');
-        }
-    }, []);
+    useFocusEffect(
+        useCallback(() => {
+            if (appStorage.getString('hasSeenWelcome') !== '1') {
+                router.replace('/welcome');
+            }
+        }, [])
+    );
 
     return (
-
         <ScrollView showsVerticalScrollIndicator={false} className="flex-1">
             <HeaderBar />
 
@@ -62,6 +63,5 @@ export default function HomeScreen() {
             </View>
 
         </ScrollView>
-
     );
 }

@@ -30,7 +30,7 @@ export default function ClassificationScreen() {
                         </TouchableOpacity>
                     </View>
                     <View>
-                        <HistoryList limit={5} />
+                        <HistoryList limit={3} />
                     </View>
                 </View>
 
